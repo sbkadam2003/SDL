@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+        }
+        
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/400" alt="Image 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/400" alt="Image 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/400" alt="Image 3">
+            </div>
+            <div class="gallery-item">
+                <img src="https://via.placeholder.com/400" alt="Image 4">
+            </div>
+            <!-- Add more gallery items as needed -->
+        </div>
+    </div>
+</body>
+</html>

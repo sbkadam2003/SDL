@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <script src="index.js" defer></script>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    text-align: left; /* Align labels and input fields to the left */
+}
+
+.container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.container input[type="text"],
+.container textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.container button:hover {
+    background-color: #0056b3;
+}
+
+.validation-message {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px; /* Add margin to separate validation messages from input fields */
+}
+
+#registration-details {
+    margin-top: 20px;
+    text-align: left; /* Align registration details to the left */
+}
+
+    </style>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <div class="form-container">
+        <div class="container">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" placeholder="Enter your first name">
+            <span id="firstname-validation" class="validation-message"></span>
+
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" placeholder="Enter your last name">
+            <span id="lastname-validation" class="validation-message"></span>
+
+            <label for="organization">Organization:</label>
+            <input type="text" id="organization" placeholder="Enter your organization">
+            <span id="organization-validation" class="validation-message"></span>
+
+            <label for="hobbies">Hobbies:</label>
+            <textarea id="hobbies" placeholder="Enter your hobbies"></textarea>
+            <span id="hobbies-validation" class="validation-message"></span>
+
+            <button onclick="submitForm()">Submit</button>
+        </div>
+        <div id="registration-details"></div>
+    </div>
+</body>
+</html>
+
+
+
+
+index.js
+
+function submitForm() {
+    var firstnameInput = document.getElementById("firstname").value;
+    var lastnameInput = document.getElementById("lastname").value;
+    var organizationInput = document.getElementById("organization").value;
+    var hobbiesInput = document.getElementById("hobbies").value;
+    
+    var firstnameValidation = document.getElementById("firstname-validation");
+    var lastnameValidation = document.getElementById("lastname-validation");
+    var organizationValidation = document.getElementById("organization-validation");
+    var hobbiesValidation = document.getElementById("hobbies-validation");
+
+    // Check if any field is empty
+    if (firstnameInput === "" || lastnameInput === "" || organizationInput === "" || hobbiesInput === "") {
+        firstnameValidation.textContent = firstnameInput === "" ? "Please enter your first name." : "";
+        lastnameValidation.textContent = lastnameInput === "" ? "Please enter your last name." : "";
+        organizationValidation.textContent = organizationInput === "" ? "Please enter your organization." : "";
+        hobbiesValidation.textContent = hobbiesInput === "" ? "Please enter your hobbies." : "";
+    } else {
+        // Clear validation messages
+        firstnameValidation.textContent = "";
+        lastnameValidation.textContent = "";
+        organizationValidation.textContent = "";
+        hobbiesValidation.textContent = "";
+
+        // Display registration details
+        var registrationDetails = document.getElementById("registration-details");
+        registrationDetails.innerHTML = "<p><strong>First Name:</strong> " + firstnameInput + "</p>" +
+                                         "<p><strong>Last Name:</strong> " + lastnameInput + "</p>" +
+                                         "<p><strong>Organization:</strong> " + organizationInput + "</p>" +
+                                         "<p><strong>Hobbies:</strong> " + hobbiesInput + "</p>";
+    }
+}

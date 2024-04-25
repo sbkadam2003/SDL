@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Series</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="index.js" defer></script>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.input-container {
+    margin-bottom: 20px;
+}
+
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-container input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px;
+}
+
+.input-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.input-container button:hover {
+    background-color: #0056b3;
+}
+
+#fibonacci-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#fibonacci-container p {
+    font-size: 18px;
+    margin: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+    </style>
+</head>
+<body>
+  <h1>Fibonacci Series</h1>
+  <label for="fibonacci-length">Enter the length of the Fibonacci series:</label>
+  <input type="number" id="fibonacci-length" min="1">
+  <button onclick="generateFibonacciSeries()">Generate Fibonacci Series</button>
+  <div id="fibonacci-container"></div>
+</body>
+</html>
+
+
+
+
+index.js
+
+// Function to generate Fibonacci series
+function generateFibonacciSeries() {
+    var lengthInput = document.getElementById("fibonacci-length");
+    var length = parseInt(lengthInput.value); // Get the value of the input field and convert it to an integer
+
+    // Validate user input
+    if (isNaN(length) || length <= 0) {
+        alert("Invalid input. Please enter a positive integer.");
+    } else {
+        var fibonacciSeries = [0, 1]; // Initialize an array with the first two Fibonacci numbers
+        for (var i = 2; i < length; i++) {
+            fibonacciSeries[i] = fibonacciSeries[i - 1] + fibonacciSeries[i - 2]; // Generate subsequent Fibonacci numbers
+        }
+        displayFibonacciSeries(fibonacciSeries); // Display the generated Fibonacci series on the HTML page
+    }
+}
+
+// Function to display Fibonacci series on HTML page
+function displayFibonacciSeries(series) {
+    var container = document.getElementById("fibonacci-container");
+    container.innerHTML = ""; // Clear previous content
+
+    for (var i = 0; i < series.length; i++) {
+        var paragraph = document.createElement("p");
+        paragraph.textContent = series[i];
+        container.appendChild(paragraph);
+    }
+}

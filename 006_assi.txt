@@ -1,0 +1,286 @@
+Index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        
+        .Container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .registrationForm {
+            background-color: #fff;
+            width: 400px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .registrationForm h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .registrationForm label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .registrationForm input[type="text"],
+        .registrationForm input[type="tel"],
+        .registrationForm input[type="email"],
+        .registrationForm input[type="password"],
+        .registrationForm input[type="date"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .registrationForm input[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .registrationForm input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="Container">
+        <form action="Register.php" class="registrationForm" method="post">
+            <h1>Registration Form</h1>
+
+            <label for="Full_Name">Full Name:</label>
+            <input type="text" name="Full_Name" placeholder="Enter Full Name" required>
+
+            <label for="Mobile_Number">Mobile Number:</label>
+            <input type="tel" name="Mobile_Number" placeholder="Enter Mobile No" required>
+
+            <label for="Address">Address:</label>
+            <input type="text" name="Address" placeholder="Enter Address" required>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Enter Email" required>
+
+            <label for="Birth_Date">Birth Date:</label>
+            <input type="date" name="Birth_Date" placeholder="Enter Birth Date" required>
+
+            <label for="Password">Password:</label>
+            <input type="password" name="Password" placeholder="Enter Password" required>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+
+Register.php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Status</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .success-message {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: green;
+        }
+        .error-message {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: red;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            margin:20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <?php
+        include 'db_connection.php';
+
+        $fullName = isset($_POST['Full_Name']) ? $_POST['Full_Name'] : '';
+        $mobileNumber = isset($_POST['Mobile_Number']) ? $_POST['Mobile_Number'] : '';
+        $address = isset($_POST['Address']) ? $_POST['Address'] : '';
+        $email = isset($_POST['email']) ? $_POST['email'] : '';
+        $birthDate = isset($_POST['Birth_Date']) ? $_POST['Birth_Date'] : '';
+        $password = isset($_POST['Password']) ? $_POST['Password'] : '';
+        
+        $sql = "INSERT INTO userinformation (FullName, MobileNumber, Address, Email, BirthDate, Password) 
+                VALUES ('$fullName', '$mobileNumber', '$address', '$email', '$birthDate', '$password')";
+
+        try {
+            if ($conn->query($sql) === TRUE) {
+                echo "<div class='success-message'><h1>New record created successfully</h1></div>";
+            } else {
+                throw new Exception("Error: " . $conn->error);
+            }
+        } catch (Exception $e) {
+            echo "<div class='error-message'><h1>" . $e->getMessage() . "</h1></div>";
+        }
+
+        echo "<button class='button' onclick=\"window.location.href='display.php'\">View Records</button>";
+     
+        echo "<a class='button' href='Register.php'>Go Back to Registration Form</a>";
+
+        // Close connection
+        $conn->close();
+        ?>
+    </div>
+</body>
+</html>
+
+
+
+
+Display.php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+           
+        }
+        .user-info {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 50%;
+        }
+        .user-info p {
+            margin: 5px 0;
+        }
+        .search-form {
+            margin-bottom: 20px;
+            display:flex;
+        
+        }
+        .search-form input[type="text"] {
+            padding: 8px;
+            margin-right: 10px;
+        }
+       
+
+        .button {
+           
+            padding: 10px;
+            background-color:blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left:10px;
+            font-weight:bold;
+        }
+
+        .sizing{
+            font-size:30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+   
+    <a class='button' href='Register.php'>Register New User</a>
+        <h2 class="sizing">User Information</h2>
+        <div class="search-form">
+        
+            <form action="" method="post">
+                <input type="text" name="search_email" placeholder="Search by Email">
+                <button class="button" type="submit" >Search</button>
+            </form>
+
+        </div>
+        <?php
+        include 'db_connection.php';
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $search_email = $_POST['search_email'];
+            $sql = "SELECT FullName, MobileNumber, Address, Email, BirthDate FROM userinformation WHERE Email LIKE '%$search_email%'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo "<div class='user-info'>";
+                    echo "<p><strong>Name:</strong> " . $row["FullName"] . "</p>";
+                    echo "<p><strong>Mobile Number:</strong> " . $row["MobileNumber"] . "</p>";
+                    echo "<p><strong>Address:</strong> " . $row["Address"] . "</p>";
+                    echo "<p><strong>Email:</strong> " . $row["Email"] . "</p>";
+                    echo "<p><strong>Birth Date:</strong> " . $row["BirthDate"] . "</p>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>No results found</p>";
+            }
+        }
+        ?>
+    </div>
+</body>
+</html>

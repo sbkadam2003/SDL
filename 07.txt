@@ -1,0 +1,85 @@
+index
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Demo</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="index.js" defer></script>
+    <style>
+      h1{
+        margin-right: 100px;
+      }
+   body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+#message-container {
+    margin-top: 20px;
+    text-align: left;
+}
+
+#message-container p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+  </style>
+</head>
+<body>
+    <h1>JavaScript Demo</h1>
+    <div id="message-container"></div>
+</body>
+</html>
+
+
+index.js
+
+// Calculate average number of weeks in human lifetime
+var averageLifespanYears = 80; // Average lifespan in years
+var weeksInYear = 52; // Number of weeks in a year
+var averageWeeksInLifetime = averageLifespanYears * weeksInYear;
+printMessage("Average number of weeks in human lifetime: " + averageWeeksInLifetime);
+
+// Create variables to store strings
+var greeting = "Hello, World!";
+var message = "This is a JavaScript demo.";
+printMessage(greeting);
+printMessage(message);
+
+// Program that tells time of the day
+function getTimeOfDay() {
+    var currentTime = new Date();
+    var currentHour = currentTime.getHours();
+
+    if (currentHour >= 5 && currentHour < 12) {
+        return "morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+        return "afternoon";
+    } else {
+        return "night";
+    }
+}
+
+var timeOfDay = getTimeOfDay();
+printMessage("It's " + timeOfDay + " time.");
+
+// Function to print messages on the page
+function printMessage(message) {
+    var messageContainer = document.getElementById("message-container");
+    var paragraph = document.createElement("p");
+    paragraph.textContent = message;
+    messageContainer.appendChild(paragraph);
+}
+

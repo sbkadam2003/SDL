@@ -1,0 +1,235 @@
+Index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Explorer</title>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+margin-left: 200px;
+}
+
+label {
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Destination Explore</h1>
+        <form action="process.php" method="post">
+            <label for="destination">Select Destination Type:</label><br>
+            <input type="radio" id="city" name="destination_type" value="city">
+            <label for="city">City</label><br>
+            <input type="radio" id="beach" name="destination_type" value="beach">
+            <label for="beach">Beach</label><br>
+            <input type="radio" id="mountain" name="destination_type" value="mountain">
+            <label for="mountain">Mountain</label><br><br>
+            <button type="submit">Explore</button>
+        </form>
+    </div>
+</body>
+</html>
+
+Process.php
+<?php
+
+// Define the base class Destination
+class Destination {
+    protected $name;
+    protected $location;
+    protected $description;
+    protected $climate;
+
+    public function __construct($name, $location, $description, $climate) {
+        $this->name = $name;
+        $this->location = $location;
+        $this->description = $description;
+        $this->climate = $climate;
+    }
+
+    public function displayDetails() {
+        echo "<div style=' max-width: 600px;
+        margin: 50px auto;
+        margin-bottom:0px;
+        padding: 20px;
+        padding-bottom:0px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow:2px 2px 10px white
+        '>";
+        echo "<h2>{$this->name}</h2>";
+        echo "<p><strong>Location:</strong> {$this->location}</p>";
+        echo "<p><strong>Description:</strong> {$this->description}</p>";
+        echo "<p><strong>Climate:</strong> {$this->climate}</p>";
+        echo "</div>";
+    }
+}
+
+// Define subclass CityDestination inheriting from Destination
+class CityDestination extends Destination {
+    private $population;
+    private $famousLandmarks;
+
+    public function __construct($name, $location, $description, $climate, $population, $famousLandmarks) {
+        parent::__construct($name, $location, $description, $climate);
+        $this->population = $population;
+        $this->famousLandmarks = $famousLandmarks;
+    }
+
+    public function displayDetails() {
+        parent::displayDetails();
+        echo "<div style=' max-width: 600px;
+        margin: 50px auto;
+        margin-top:0px;
+        padding: 20px;
+        padding-top:0px;
+        background-color: #fff;
+        border-radius: 8px;
+      '>"; echo "<p><strong>Population:</strong> {$this->population}</p>";
+        echo "<p><strong>Famous Landmarks:</strong> {$this->famousLandmarks}</p>";
+        echo "</div>";
+    }
+}
+
+// Define subclass BeachDestination inheriting from Destination
+class BeachDestination extends Destination {
+    private $beachActivities;
+    private $waterTemperature;
+
+    public function __construct($name, $location, $description, $climate, $beachActivities, $waterTemperature) {
+        parent::__construct($name, $location, $description, $climate);
+        $this->beachActivities = $beachActivities;
+        $this->waterTemperature = $waterTemperature;
+    }
+
+    public function displayDetails() {
+        parent::displayDetails();
+        echo "<div style=' max-width: 600px;
+        margin: 50px auto;
+        margin-top:0px;
+        padding: 20px;
+        padding-top:0px;
+        background-color: #fff;
+        border-radius: 8px;
+       '>";
+        echo "<p><strong>Beach Activities:</strong> {$this->beachActivities}</p>";
+        echo "<p><strong>Water Temperature:</strong> {$this->waterTemperature}</p>";
+        echo "</div>";
+    }
+}
+
+// Define subclass MountainDestination inheriting from Destination
+class MountainDestination extends Destination {
+    private $hikingTrails;
+    private $peakElevation;
+
+    public function __construct($name, $location, $description, $climate, $hikingTrails, $peakElevation) {
+        parent::__construct($name, $location, $description, $climate);
+        $this->hikingTrails = $hikingTrails;
+        $this->peakElevation = $peakElevation;
+    }
+
+    public function displayDetails() {
+        parent::displayDetails();
+        echo "<div style=' max-width: 600px;
+        margin: 50px auto;
+        margin-top:0px;
+        padding: 20px;
+        padding-top:0px;
+        background-color: #fff;
+        border-radius: 8px;
+        '>";
+        echo "<p><strong>Hiking Trails:</strong> {$this->hikingTrails}</p>";
+        echo "<p><strong>Peak Elevation:</strong> {$this->peakElevation}</p>";
+        echo "</div>";
+    }
+}
+
+// Process form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if destination type is selected
+    if (isset($_POST['destination_type'])) {
+        $destination_type = $_POST['destination_type'];
+
+        // Create destination object based on the selected type
+        switch ($destination_type) {
+            case 'city':
+                $destination = new CityDestination("New York City", "United States", "The city that never sleeps", "Humid subtropical climate", "8.4 million", "Statue of Liberty, Central Park");
+                break;
+            case 'beach':
+                $destination = new BeachDestination("Goa", "India"
+"A tropical paradise", "Tropical climate", "Swimming, surfing, snorkeling", "Around 80°F");
+                break;
+            case 'mountain':
+                $destination = new MountainDestination("Manali", "India", "A majestic mountain range", "Alpine climate", "Various hiking trails", "4,634 meters (Matterhorn)");
+                break;
+            default:
+                echo "Invalid destination type";
+        }
+
+        // Display destination details
+        $destination->displayDetails();
+    } else {
+        echo "<div style=' max-width: 600px;
+        margin: 50px auto;
+        margin-top:0px;
+        padding: 20px;
+        padding-top:0px;
+        background-color: #fff;
+        border-radius: 8px;
+        color:red;
+       border:2px solid black;
+       font-size:20px;
+       text-align:center;
+       
+        '>";
+        echo "<p>Please select a destination type</p>";
+        echo "</div>";
+    }
+}
+?>
+

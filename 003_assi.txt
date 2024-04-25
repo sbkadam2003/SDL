@@ -1,0 +1,81 @@
+<exam xmlns="http://www.contoso.com/books"> 
+    <registration genre="webdeveloper" admissiondate="2021-12-07" ISBN="1-861003-11-0"> 
+        <detail> 
+            Computer engineering student 
+        </detail> 
+        <name> 
+            <first-name> 
+                Sachin 
+            </first-name> 
+            <last-name> 
+                Kadam 
+            </last-name> 
+        </name> 
+        <exam-fee> 
+            85000 
+        </exam-fee> 
+    </registration> 
+    <registration genre="webdeveloper" admissiondate="2021-12-21" ISBN="0-201-63361-2"> 
+        <detail> 
+            Computer engineering student 
+        </detail> 
+        <name> 
+            <first-name> 
+               Sourabh 
+            </first-name> 
+            <last-name> 
+                Joshi 
+            </last-name> 
+        </name> 
+        <exam-fee> 
+            5000 
+        </exam-fee> 
+    </registration> 
+    <registration genre="cloudcomputing" admissiondate="2022-12-08" ISBN="1-861001-57-6"> 
+        <detail> 
+            Artificial Intelligence and Mechine Learning engineering student 
+        </detail> 
+        <name> 
+            <first-name> 
+                Atharv 
+            </first-name> 
+            <last-name> 
+                Powalkar 
+            </last-name> 
+        </name><exam-fee>85000</exam-fee></registration></exam> 
+
+
+
+XSD file 
+ 
+ 
+<?xml version="1.0" encoding="utf-8"?> 
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"  
+targetNamespace="http://www.contoso.com/books" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema"> 
+    <xs:element name="exam"> 
+        <xs:complexType> 
+            <xs:sequence> 
+                <xs:element maxOccurs="unbounded" name="registration"> 
+                    <xs:complexType> 
+                        <xs:sequence> 
+                            <xs:element name="detail" type="xs:string"/> 
+                            <xs:element name="name"> 
+                                <xs:complexType> 
+                                    <xs:sequence> 
+                                        <xs:element minOccurs="0" name="first-name" type="xs:string"/> 
+                                        <xs:element minOccurs="0" name="last-name" type="xs:string"/> 
+                                    </xs:sequence> 
+                                </xs:complexType> 
+                            </xs:element> 
+                            <xs:element name="exam-fee" type="xs:decimal"/> 
+                        </xs:sequence> 
+                        <xs:attribute name="genre" type="xs:string" use="required"/> 
+                        <xs:attribute name="admissiondate" type="xs:string" use="required"/> 
+                        <xs:attribute name="ISBN" type="xs:string" use="required"/> 
+                    </xs:complexType> 
+                </xs:element> 
+            </xs:sequence> 
+        </xs:complexType> 
+    </xs:element> 
+</xs:schema>

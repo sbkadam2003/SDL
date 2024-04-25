@@ -1,0 +1,64 @@
+XAMPP
+
+
+1) download xampp
+2) cd Downloads
+3) sudo chmod +x xampp-linux-x64-8.2.0-0-installer.run
+4) sudo ./xampp-linux-x64-8.2.0-0-installer.run
+5) click on manage server
+6) Start Apache server
+if not starting then check Apache service using following command :
+sudo service apache2 status
+sudo service apache2 stop
+start apache
+if problem occurs for Apache2 then configure and change port number to 81
+7) if not starting then check mysql service using following command :
+if problem occurs for mysql then click configure and change port number to 3307
+start mysql
+Step 8). Create XAMPP desktop shortcut:
+a) First, change your working directory to /usr/share/applications using the given
+command:cd /usr/share/applications
+Here, you will have to create a desktop file with .desktop extension. Here, I’m going
+with xampp.desktop:sudo nano xampp.desktop
+And paste the following lines in xampp.desktop file:
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=XAMPP Control Panel
+Exec=sudo /opt/lampp/manager-linux-x64.run
+Icon=/opt/lampp/htdocs/favicon.ico
+Terminal=false
+StartupNotify=false
+b)Well, you don’t have to. I will show you a workaround so that it won’t ask for a
+password. First, open the sudoers file using the given command:sudo visudo
+c)And if you are using nano, press Alt + / to jump to the end of the text file. And add
+the following line, so you can skip entering the password:username
+ALL = NOPASSWD: /opt/lampp/manager-linux-x64.run
+d)Make sure to add your actual username instead of pasting the username
+
+Steps to copy paste .php and .html files in htdocs folder
+1) To change the privilege of htdocs file do the following: Open new terminal
+2) sudo su
+3) enter password
+4) chmod -R 777 /opt/lampp/htdocs
+5) After this copy and paste the .php file and .html file in htdocs
+6) Go into the browser
+7) localhost:81/phpmyadmin
+8) localhost:81/contact.html
+
+
+
+OR
+
+
+1) download xampp
+2) cd /home/[username]/Downloads
+3)sudo chmod 755 [package_name]
+4)ls –l [package_name]
+5)sudo ./[package_name]
+6)sudo /opt/lampp/./manager-linux-x64.run
+
+
+Important: If the services fail to start, make sure that the net-tools utility is installed on your system. To install net-tools, run the command below:
+
+sudo apt install net-tools

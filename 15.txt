@@ -1,0 +1,124 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script src="index.js" defer></script>
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.container {
+    margin-bottom: 20px;
+}
+
+.container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.container input[type="text"],
+.container input[type="password"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.container button:hover {
+    background-color: #0056b3;
+}
+
+#welcome-message {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.validation-message {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px; /* Add margin to separate validation messages from input fields */
+}
+
+    </style>
+</head>
+<body>
+  <h1>Sign Up</h1>
+  <div class="container">
+      <label for="username">Username:</label>
+      <input type="text" id="username" placeholder="Enter your username">
+      <span id="username-validation" class="validation-message"></span>
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password">
+      <span id="password-validation" class="validation-message"></span>
+      <button onclick="login()">Login</button>
+  </div>
+  <div id="welcome-message"></div>
+</body>
+</html>
+
+
+
+index.js
+
+function login() {
+    var usernameInput = document.getElementById("username").value;
+    var passwordInput = document.getElementById("password").value;
+    var usernameValidation = document.getElementById("username-validation");
+    var passwordValidation = document.getElementById("password-validation");
+
+    // Regular expressions for password validation
+    var containsLetters = /[a-zA-Z]/.test(passwordInput);
+    var containsNumbers = /\d/.test(passwordInput);
+    var containsSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(passwordInput);
+
+    // Check if both fields are empty
+    if (usernameInput === "" && passwordInput === "") {
+        usernameValidation.textContent = "Please fill in the username field.";
+        passwordValidation.textContent = "Please fill in the password field.";
+    } else if (usernameInput === "") { // Check if username field is empty
+        usernameValidation.textContent = "Please fill in the username field.";
+        passwordValidation.textContent = "";
+    } else if (passwordInput === "") { // Check if password field is empty
+        passwordValidation.textContent = "Please fill in the password field.";
+        usernameValidation.textContent = "";
+    } else if (passwordInput.length < 8) { // Check if password is at least 8 characters long
+        passwordValidation.textContent = "Password must be at least 8 characters long.";
+        usernameValidation.textContent = "";
+    } else if (!containsLetters || !containsNumbers || !containsSpecialChars) { // Check if password contains letters, numbers, and special characters
+        passwordValidation.textContent = "Password must contain at least one letter, one number, and one special character.";
+        usernameValidation.textContent = "";
+    } else {
+        // Clear validation messages
+        usernameValidation.textContent = "";
+        passwordValidation.textContent = "";
+
+        // Display welcome message with the username
+        var welcomeMessage = document.getElementById("welcome-message");
+        welcomeMessage.textContent = "Welcome, " + usernameInput + "!";
+    }
+}
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>form</title> 
+    <style> 
+        div{ 
+          text-align: center; 
+          border-style: groove; 
+          width: fit-content; 
+        } 
+        
+        .error { 
+          color: red; 
+        } 
+    </style> 
+     
+</head> 
+<body> 
+    <div> 
+        <h1> This is Form </h1> 
+        <form id="myForm"> 
+           <p>First name : <input type="text" name="First" id="firstName" placeholder="first name" > 
+            </p> 
+           <p>Middle name : <input type="text" name="Middle" id="middleName" 
+placeholder="Middle name" > 
+            </p> 
+            <p>Last name : <input type="text" name="Last" id="lastName" placeholder="Last name" > 
+            </p> 
+            <p>Email : <input type="email" name="Email" id="email" placeholder="@email" > 
+            </p> 
+            <p>Password : <input type="password" name="Password" id="password" 
+placeholder="password" > 
+            </p> 
+            <button type="submit">submit</button> 
+        </form> 
+        <p class="error" id="error"></p> 
+    </div> 
+    <script >  
+        const form = document.getElementById('myForm'); 
+        const error = document.getElementById('error'); 
+ 
+        form.addEventListener('submit', (event) => { 
+            event.preventDefault(); 
+ 
+            const firstName = document.getElementById('firstName').value; 
+            const middleName = document.getElementById('middleName').value; 
+            const lastName = document.getElementById('lastName').value; 
+            const email = document.getElementById('email').value; 
+            const password = document.getElementById('password').value; 
+ 
+            if (firstName === '' || middleName === '' || lastName === '' || email === '' || password === 
+''|| email==='') { 
+                error.textContent = 'All fields are required'; 
+                return; 
+            } 
+ 
+            if (!email.includes('@')) { 
+                error.textContent = 'Invalid email'; 
+                return; 
+            } 
+ 
+            if (password.length < 8) { 
+                error.textContent = 'Password must be at least 8 characters'; 
+                return; 
+            } 
+ 
+            error.textContent = ''; 
+            alert('Form submitted successfully'); 
+        });</script> 
+</body></html>

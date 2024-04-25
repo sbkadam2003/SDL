@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Destinations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 60%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Travel Destinations</h1>
+        <form action="search.php" method="GET">
+            <label for="destination">Enter Destination:</label>
+            <input type="text" id="destination" name="destination">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+Search.php
+<?php
+
+// Array of destinations
+$destinations = array(
+    "Paris" => array(
+        "location" => "France",
+        "attractions" => "Eiffel Tower",
+        "climate" => "Mild climate"
+    ),
+    "Rome" => array(
+        "location" => "Italy",
+        "attractions" => "Colosseum",
+        "climate" => "Mediterranean climate"
+    ),
+    "Mumbai" => array(
+        "location" => "India",
+        "attractions" => "Gateway of India, Marine Drive",
+        "climate" => "Tropical climate"
+    ),
+    "Jaipur" => array(
+        "location" => "India",
+        "attractions" => "Amber Fort, Hawa Mahal",
+        "climate" => "Hot desert climate"
+    ),
+
+);
+
+if (isset($_GET['destination'])) {
+    $searched_destination = strtolower($_GET['destination']); // Convert searched destination to lowercase
+
+    // Convert all keys in the $destinations array to lowercase
+    $destinations_lower = array_change_key_case($destinations, CASE_LOWER);
+
+    // Check if the searched destination exists in the array
+    if (array_key_exists($searched_destination, $destinations_lower)) {
+        // Destination found, display information
+        $destination_info = $destinations_lower[$searched_destination];
+        echo "<div style=' max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);'>";
+        echo "<h2 style='font-size:30px;  color: #333;
+        margin-bottom: 15px;'>" . ucfirst($searched_destination) . "</h2>"; // Capitalize the first letter of the city name
+        echo "<p style='color:black'><strong style='color:black;font-size:20px;'>Location:</strong> " . $destination_info['location'] . "</p>";
+        echo "<p style='color:black'><strong style='color:black;font-size:20px;'>Popular Attractions:</strong> " . $destination_info['attractions'] . "</p>";
+        echo "<p style=' color:black'><strong style='color:black;font-size:20px;'>Climate:</strong> " . $destination_info['climate'] . "</p></div>";
+    } else {
+        // Destination not found
+        echo "<div style=' max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);'>";
+        echo "<p style='color: #ff0000;'>Sorry, $searched_destination is not in our database.</p></div>";
+    }
+}
+?>
